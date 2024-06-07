@@ -15,7 +15,7 @@ scene.add(bowl);
 
 // Create a glass
 const glassGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.8, 32);
-const glassMaterial = new THREE.MeshStandardMaterial({ color: 0x00ffff });
+const glassMaterial = new THREE.MeshStandardMaterial({ color: 0xFFC0CB });
 const glass = new THREE.Mesh(glassGeometry, glassMaterial);
 glass.position.set(1.3, 1.5, 0); // Set the position above the table top
 scene.add(glass);
@@ -29,7 +29,7 @@ scene.add(tableTop);
 
 // Create table legs
 const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2);
-const legMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+const legMaterial = new THREE.MeshStandardMaterial({ color: 0xC4A484 });
 
 const leg1 = new THREE.Mesh(legGeometry, legMaterial);
 leg1.position.set(1.8, 0.5, 0.9);
@@ -51,6 +51,7 @@ scene.add(leg4);
 const roomMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.BackSide });
 
 // Floor
+const floorMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
 const floorGeometry = new THREE.BoxGeometry(10, 0.1, 10);
 const floor = new THREE.Mesh(floorGeometry, roomMaterial);
 floor.position.y = 0;
@@ -58,32 +59,41 @@ scene.add(floor);
 
 // Ceiling
 const ceilingGeometry = new THREE.BoxGeometry(10, 0.1, 10);
-const ceiling = new THREE.Mesh(ceilingGeometry, roomMaterial);
+const ceilingMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff }); // Warna merah
+const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
 ceiling.position.y = 5;
 scene.add(ceiling);
 
 // Walls
+const wallMaterial = new THREE.MeshStandardMaterial({ color: 0x00ffff });
 const wallGeometry = new THREE.BoxGeometry(10, 5, 0.1);
 
 // Back wall
-const backWall = new THREE.Mesh(wallGeometry, roomMaterial);
+const backWall = new THREE.Mesh(wallGeometry, wallMaterial);
 backWall.position.z = -5;
 backWall.position.y = 2.5;
 scene.add(backWall);
 
 // Left wall
-const leftWall = new THREE.Mesh(wallGeometry, roomMaterial);
+const leftWall = new THREE.Mesh(wallGeometry, wallMaterial);
 leftWall.rotation.y = Math.PI / 2;
 leftWall.position.x = -5;
 leftWall.position.y = 2.5;
 scene.add(leftWall);
 
 // Right wall
-const rightWall = new THREE.Mesh(wallGeometry, roomMaterial);
+const rightWall = new THREE.Mesh(wallGeometry, wallMaterial);
 rightWall.rotation.y = Math.PI / 2;
 rightWall.position.x = 5;
 rightWall.position.y = 2.5;
 scene.add(rightWall);
+
+// Create window on the back wall
+const windowGeometry = new THREE.PlaneGeometry(2, 2); // Ukuran jendela
+const windowMaterial = new THREE.MeshStandardMaterial({ color: 0xADD8E6, transparent: true, opacity: 0.5 }); // Warna dan transparansi jendela
+const windowMesh = new THREE.Mesh(windowGeometry, windowMaterial);
+windowMesh.position.set(0, 2.5, -4.9); // Posisi jendela di dinding belakang
+scene.add(windowMesh);
 
 // Add lighting
 const ambientLight = new THREE.AmbientLight(0x404040);
